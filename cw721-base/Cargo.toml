@@ -1,9 +1,9 @@
 [package]
-name = "cw721-metadata-onchain"
+name = "cw721-base"
 version = "0.9.2"
 authors = ["Ethan Frey <ethanfrey@users.noreply.github.com>"]
 edition = "2018"
-description = "Example extending CW721 NFT to store metadata on chain"
+description = "Basic implementation cw721 NFTs"
 license = "Apache-2.0"
 repository = "https://github.com/CosmWasm/cw-plus"
 homepage = "https://cosmwasm.com"
@@ -18,13 +18,6 @@ exclude = [
 [lib]
 crate-type = ["cdylib", "rlib"]
 
-[package.metadata.scripts]
-optimize = """docker run --rm -v "$(pwd)":/code \
-  --mount type=volume,source="$(basename "$(pwd)")_cache",target=/code/target \
-  --mount type=volume,source=registry_cache,target=/usr/local/cargo/registry \
-  cosmwasm/rust-optimizer:0.12.5
-"""
-
 [features]
 # for more explicit tests, cargo test --features=backtraces
 backtraces = ["cosmwasm-std/backtraces"]
@@ -32,8 +25,10 @@ backtraces = ["cosmwasm-std/backtraces"]
 library = []
 
 [dependencies]
-cw721 = { version = "0.9.2" }
-cw721-base = {version = "0.9.2", features = ["library"], path = "./cw721-base" }
+cw0 = { version = "0.9.1" }
+cw2 = { version = "0.9.1" }
+cw721 = { path = "../cw721", version = "0.9.2" }
+cw-storage-plus = { version = "0.9.1" }
 cosmwasm-std = { version = "0.16.0" }
 schemars = "0.8.1"
 serde = { version = "1.0.103", default-features = false, features = ["derive"] }
